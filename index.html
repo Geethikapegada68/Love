@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Nanna ❤️</title>
+
+<style>
+body{
+ margin:0;
+ font-family:Segoe UI, sans-serif;
+ text-align:center;
+ background:#0f0f1a;
+ color:white;
+ overflow:hidden;
+}
+
+.screen{
+ display:none;
+ padding:40px 20px;
+ margin-top:80px;
+}
+
+button{
+ padding:14px 26px;
+ font-size:18px;
+ border:none;
+ border-radius:30px;
+ background:#ff2e88;
+ color:white;
+ cursor:pointer;
+ margin:12px;
+}
+
+.bar{
+ width:80%;
+ height:22px;
+ background:#222;
+ border-radius:20px;
+ margin:20px auto;
+ overflow:hidden;
+}
+
+.fill{
+ height:100%;
+ width:0%;
+ background:linear-gradient(90deg,#ff2e88,#ff9ac6);
+}
+
+.heart{
+ position:fixed;
+ top:-10px;
+ animation:fall linear forwards;
+}
+
+@keyframes fall{
+ to{transform:translateY(100vh);}
+}
+
+.type{
+ font-size:24px;
+ min-height:60px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 LOADING -->
+<div id="s1" class="screen" style="display:block">
+<h2>🔍 Scanning Birthday Boy…</h2>
+<div class="bar"><div id="load" class="fill"></div></div>
+<p>Please wait… verifying cuteness level 😌</p>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="s2" class="screen">
+<h1>Access Granted ❤️</h1>
+<div class="type" id="typeText"></div>
+<button onclick="next(3)">Continue</button>
+</div>
+
+<!-- SCREEN 3 CHOICE -->
+<div id="s3" class="screen">
+<h2>Choose your gift path 😌</h2>
+<button onclick="lovePoints(30)">Romantic</button>
+<button onclick="lovePoints(20)">Cute</button>
+<button onclick="lovePoints(10)">Dangerous 😏</button>
+<div class="bar"><div id="lovebar" class="fill"></div></div>
+</div>
+
+<!-- SCREEN 4 SECRET -->
+<div id="s4" class="screen">
+<h2>Secret Message Unlock 🔐</h2>
+<p>Type: NANNA</p>
+<input id="pwd" style="padding:10px;border-radius:10px;border:none">
+<br>
+<button onclick="check()">Unlock</button>
+<p id="msg"></p>
+</div>
+
+<!-- SCREEN 5 YOUR LINE -->
+<div id="s5" class="screen">
+<h2>💌 Special Warning Message</h2>
+<p>
+Happy Birthday Nanna ❤️<br>
+Nannu koncham ignore cheyakunda love chesthe chalu…<br>
+lekpothe naa over-drama start avutundi 😌
+</p>
+<button onclick="next(6)">Proceed Carefully 😄</button>
+</div>
+
+<!-- SCREEN 6 TAP GAME -->
+<div id="s6" class="screen">
+<h2>Tap to prove love level</h2>
+<button onclick="tap()">TAP ❤️</button>
+<p id="tapc"></p>
+</div>
+
+<!-- SCREEN 7 FINAL -->
+<div id="s7" class="screen">
+<h1>🎉 Happy Birthday Nanna 🎉</h1>
+<p>
+You are loved.<br>
+You are chosen.<br>
+You are stuck with me forever 😌
+</p>
+<button onclick="storm()">Release Love Storm</button>
+</div>
+
+<script>
+/* loading */
+let w=0;
+let iv=setInterval(()=>{
+ w+=5;
+ load.style.width=w+"%";
+ if(w>=100){ clearInterval(iv); next(2); type(); }
+},120);
+
+/* screen switch */
+function next(n){
+ document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
+ document.getElementById("s"+n).style.display="block";
+ hearts(12);
+}
+
+/* typing */
+let text="🎂 Initializing Birthday Surprise For Nanna...";
+let i=0;
+function type(){
+ let t=setInterval(()=>{
+  typeText.innerHTML+=text[i];
+  i++;
+  if(i>=text.length) clearInterval(t);
+ },50);
+}
+
+/* love meter */
+let love=0;
+function lovePoints(v){
+ love+=v;
+ if(love>100) love=100;
+ lovebar.style.width=love+"%";
+ if(love>=60) setTimeout(()=>next(4),600);
+}
+
+/* password */
+function check(){
+ if(pwd.value.toLowerCase()=="nanna") next(5);
+ else msg.innerText="Wrong 😜";
+}
+
+/* tap game */
+let tc=0;
+function tap(){
+ tc++;
+ tapc.innerText="Love taps: "+tc;
+ if(tc>=8) next(7);
+}
+
+/* hearts */
+function hearts(n){for(let i=0;i<n;i++) make();}
+function storm(){setInterval(make,120);}
+function make(){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(Math.random()*24+16)+"px";
+ h.style.animationDuration=(Math.random()*3+2)+"s";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+}
+</script>
+
+</body>
+</html>
+
